@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta content="" name="Keywords">
+<meta content="" name="Description">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" href="css/swiper.min.css"/>
+<link rel="stylesheet" href="css/bootstrap.css"/>
+<link rel="stylesheet" href="css/main.css"/>
+<script src="js/jquery-1.11.2.min.js"></script>
+<script src="js/swiper.min.js"></script>
+<script src="js/main.js"></script>
+<script src="css/bootstrap.css" type="text/javascript"></script>
+<script src="js/layer_mobile/layer.js" type="text/javascript"></script>
+<title>首页</title>
+<!DOCTYPE html>
+<html lang="en">
+
+    <style type="text/css">
+        .pagination-bar {
+            font-size: 0px;
+            padding: 20px 0px;
+            text-align: center;
+        }
+
+        .pagination-bar a {
+            display: inline-block;
+            padding: 5px 7.5px;
+            text-decoration: none;
+            min-width: 20px;
+            font-size: 16px;
+        }
+
+        .pagination-bar a:not(.disabled) {
+            background-color: #FFF;
+            color: #666;
+            border: 1px solid #BBBBBB;
+        }
+
+        .pagination-bar a.disabled {
+            background-color: #666;
+            color: #FFF;
+            border: 1px solid #444;
+        }
+
+        .page-prev {
+            border-radius: 15px 0px 0px 15px;
+        }
+
+        .page-next {
+            border-radius: 0px 15px 15px 0px
+        }
+
+        .pagination-bar span:not(.active) {
+            display: inline-block;
+            padding: 5px 7.5px;
+            font-size: 16px;
+        }
+    </style>
+
+
+
+</head>
+<body>
+<!--头部导航begin-->
+<header>
+    <div class="container clearfix">
+        
+        <ul class="nav fl">
+            <li class="fl"><a  href="welcom.html">首页</a></li>
+            <li class="fl"><a href="japanvideolist.html">日本电影</a></li>
+            <li class="fl"><a class="current" href="comiclist.html">漫画</a></li>
+            <li class="fl"><a href="setip.html">ip</a></li>
+  			
+        </ul>
+        <!--<div class="search fr rlt">
+                <input class="middle" id="search" type="button" value="" />
+        </div>-->
+        
+    </div>
+</header>
+
+<section>
+<!--搜索框-->
+
+<!--栏目end-->
+<!--强力推荐版块begin-->
+<div class="content_stye">
+	<!--动漫-->
+<div class="recommend clearfix Anime" style="margin-bottom: 0;">
+
+<!--新片速递版块begin-->
+<div class="recommend clearfix">
+<div class="title_name"> 
+<h2 class="title">
+            <span>漫画</span>
+        </h2>
+</div>
+    <div class="container" >
+    <div class="row" id="picture">
+        
+    </div>
+    </div>
+</div>
+<!--新片速递版块end-->
+
+<div class="pagination-bar" id="pagenum11">
+    <!--<a href="#" class="page-prev disabled">&lt;</a>
+    <a href="#" class="disabled">1</a>
+    <a href="#">2</a>
+    <a href="#">3</a>
+    <a href="#">4</a>
+    <span>...</span>
+    <a href="#">19</a>
+    <a href="#">20</a>
+    <a href="#" class="page-next">&gt;</a>-->
+</div>
+</div>
+<!--动漫end-->
+<!--底部begin-->
+
+<div class="full hide"></div>
+</div>
+</section>
+</body>
+</html>
+<script> /*********搜索*********/
+function submit_btn(){
+	 $(".h_search_style input[type$='text']").each(function(n){
+		  if($(this).val()=="")
+          {
+               
+		 layer.open({
+		  title: [
+			'提示框',
+			'background-color:#24baf1; color:#fff;'
+		  ]
+		  ,anim: 'up'
+		  ,content: '搜索框不能为空'
+		  ,btn: ['确认', '取消']
+		}); 
+            return false;            
+          } 
+		 else{
+			 location.href="search.html";
+			 
+			 }
+		 })		
+}
+
+$(function(){
+        /*公共部分
+         * 导航栏
+         * footer CopyRight
+         */
+        var storage=window.localStorage;
+       			 var ip =storage.getItem("ip");
+    				
+    				//alert(ip);
+        $(".headerpage").load("left.html");
+		$(".footer-menu").load("footmenu.html");	
+   var data = {"page":1};
+   var oldurl = window.location.href;
+   if(oldurl.indexOf("?")<=0){
+   oldurl=1
+   }else{
+   oldurl = oldurl.slice(oldurl.indexOf("?")+13, oldurl.length);
+   }
+  
+    $.ajax({
+            url : "http://"+ip+"/picandfilms/gotonextpicpage.do?currentPage="+oldurl,
+            async : true,
+            data:data,
+            
+            type : 'post',
+            success : function(rtn, textStatus) {
+                //业务控制
+ 				
+ 				var pichtml = "";
+ 				for(var i = 0 ;i <rtn.picBaseinfo.length;i++){
+ 				var pichtml1="<dl class=\"col-xs-4 col-md-4\"><dt><a href=\"picviewer.html?artist="+rtn.picBaseinfo[i].id+"\"><img class=\"auto\" src=\"http://"+ip+"/cover/"+rtn.picBaseinfo[i].cover.slice(9, rtn.picBaseinfo[i].cover.length)+"\" alt=\"\"/></a><div class=\"score abs\">"+rtn.picBaseinfo[i].artist+"</div><!--显示评分--></dt><dd><a href=\"picviewer.html?artist="+rtn.picBaseinfo[i].id+"\">"+rtn.picBaseinfo[i].id+"</a></dd></dl>";
+ 					pichtml+=pichtml1; 
+ 				}
+ 				$("#picture").append(pichtml);
+ 				
+ 				var pagenum = "<div class=\"pagenum\"><ul class=\"pagination\" c><li><a href=\"comiclist.html?currentPage="+1+"\">«</li>";
+ 				if(rtn.currentPage<=5){
+ 					if(rtn.totalPage<10){
+ 					for(var i = 1 ;i <=rtn.totalPage;i++){
+ 						if(rtn.currentPage==i){
+ 							var pagenum1="<li><a class=\"disabled\" href=\"#\">"+i+"</a></li>";
+ 							pagenum+=pagenum1;
+ 						}else{
+ 							var pagenum1="<li><a href=\"comiclist.html?currentPage="+i+"\">"+i+"</a></li>";
+ 							pagenum+=pagenum1;
+ 						}
+ 					
+ 					}
+ 					}else{
+ 					for(var i = 1 ;i <=10;i++){
+ 						if(rtn.currentPage==i){
+ 							var pagenum1="<li><a class=\"disabled\" href=\"#\">"+i+"</a></li>";
+ 							pagenum+=pagenum1;
+ 						}else{
+ 							var pagenum1="<li><a href=\"comiclist.html?currentPage="+i+"\">"+i+"</a></li>";
+ 							pagenum+=pagenum1;
+ 						}
+ 					
+ 					}
+ 					}
+ 					
+ 					
+ 				}else{
+ 					if(rtn.currentPage+4>rtn.totalPage){
+ 					for(var i = rtn.currentPage-4 ;i <=rtn.totalPage;i++){
+ 						if(rtn.currentPage==i){
+ 							var pagenum1="<li><a class=\"disabled\" href=\"#\">"+i+"</a></li>";
+ 							pagenum+=pagenum1;
+ 						}else{
+ 							var pagenum1="<li><a href=\"comiclist.html?currentPage="+i+"\">"+i+"</a></li>";
+ 							pagenum+=pagenum1;
+ 						}
+ 					
+ 					}
+ 					}else{
+ 					for(var i = rtn.currentPage-4 ;i <=rtn.currentPage+4;i++){
+ 						if(rtn.currentPage==i){
+ 							var pagenum1="<li><a class=\"disabled\" href=\"#\">"+i+"</a></li>";
+ 							pagenum+=pagenum1;
+ 						}else{
+ 							var pagenum1="<li><a href=\"comiclist.html?currentPage="+i+"\">"+i+"</a></li>";
+ 							pagenum+=pagenum1;
+ 						}
+ 					
+ 					}
+ 					}
+ 					
+ 				}
+ 				
+                pagenum+=" <li><a href=\"comiclist.html?currentPage="+rtn.totalPage+"\">»</a></li></ul></div>";
+                $("#pagenum11").append(pagenum);
+ 				
+            },
+            error : function(jqXHR, textStatus,
+                    errorThrown) {
+                var sessionstatus = jqXHRgetResponseHeader("sessionstatus");
+                if (sessionstatus == "timeout") {
+                    alert(i1510.sessionOutMes);
+                    var req_address = i1510.sessionOutUrl;
+                    window.location.href = req_address;
+                }
+            }
+ 
+        });
+        
+    });
+</script>

@@ -1,0 +1,334 @@
+{
+    "@platforms": ["android", "iPhone", "iPad"],
+    "id": "__W2A__192.168.1.101",/*应用的标识，创建应用时自动生成，勿手动修改*/
+    "name": "app",/*应用名称，程序桌面图标名称*/
+    "version": {
+        "name": "1.0",/*应用版本名称*/
+        "code": ""
+    },
+    "description": "app",/*应用描述信息*/
+    "icons": {
+        "72": "icon.png"
+    },
+    "launch_path": "new_file.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
+    "developer": {
+        "name": "",/*开发者名称*/
+        "email": "",/*开发者邮箱地址*/
+        "url": ""/*开发者个人主页地址*/
+    },
+    "permissions": {
+        
+        "Cache": {
+            "description": "管理应用缓存"
+        },
+        "Console": {
+            "description": "跟踪调试输出日志"
+        },
+        "Contacts": {
+            "description": "访问系统联系人信息"
+        },
+        "Events": {
+            "description": "应用扩展事件"
+        },
+        "Maps": {
+            "description": "管理地图插件"
+        }
+    },
+    "plus": {
+        "splashscreen": {
+            "autoclose": true,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
+            "waiting": true/*是否在程序启动界面显示等待雪花，true表示显示，false表示不显示。*/
+        },
+        "popGesture": "close",/*设置应用默认侧滑返回关闭Webview窗口，"none"为无侧滑返回功能，"hide"为侧滑隐藏Webview窗口。参考http://ask.dcloud.net.cn/article/102*/
+        "runmode": "normal",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
+        "signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
+        "distribute": {
+            "apple": {
+                "appid": "",/*iOS应用标识，苹果开发网站申请的appid，如io.dcloud.HelloH5*/
+                "mobileprovision": "",/*iOS应用打包配置文件*/
+                "password": "",/*iOS应用打包个人证书导入密码*/
+                "p12": "",/*iOS应用打包个人证书，打包配置文件关联的个人证书*/
+                "devices": "universal",/*iOS应用支持的设备类型，可取值iphone/ipad/universal*/
+                "frameworks":[
+                ]/*调用Native.js调用原生Objective-c API需要引用的FrameWork，如需调用GameCenter，则添加"GameKit.framework"*/
+            },
+            "google": {
+                "packagename": "",/*Android应用包名，如io.dcloud.HelloH5*/
+                "keystore": "",/*Android应用打包使用的密���库文件*/
+                "password": "",/*Android应用打包使用密钥库中证书的密码*/
+                "aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
+               "permissions": ["<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>","<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.READ_LOGS\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-feature android:name=\"android.hardware.camera.autofocus\"/>","<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>","<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>","<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>","<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"]
+				/*使用Native.js调用原生安卓API需要使用到的系统权限*/
+            },
+            "orientation": [
+                "portrait-primary"
+            ],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
+            "icons": {
+                "ios": {
+                    "prerendered": true, /*应用图标是否已经高亮处理，在iOS6及以下设备上有效*/
+                     /*应用图标，分辨率：512x512，用于自动生成各种尺寸程序图标*/
+                    "iphone": {
+                        "normal": "", /*iPhone3/3GS程序图标，分辨率：57x57*/
+                        "retina": "", /*iPhone4程序图标，分辨率：114x114*/
+                         /*iPhone4S/5/6程序图标，分辨率：120x120*/
+			 /*iPhone6 Plus程序图标，分辨率：180x180*/
+                        "spotlight-normal": "", /*iPhone3/3GS Spotlight搜索程序图标，分辨率：29x29*/
+                        "spotlight-retina": "", /*iPhone4 Spotlight搜索程序图标，分辨率：58x58*/
+                         /*iPhone4S/5/6 Spotlight搜索程序图标，分辨率：80x80*/
+                        "settings-normal": "", /*iPhone4设置页面程序图标，分辨率：29x29*/
+                         /*iPhone4S/5/6设置页面程序图标，分辨率：58x58*/
+			"app@2x":"unpackage/res/icons/120x120.png","app@3x":"unpackage/res/icons/180x180.png","settings@3x":"unpackage/res/icons/87x87.png","settings@2x":"unpackage/res/icons/58x58.png","spotlight@2x":"unpackage/res/icons/80x80.png","spotlight@3x":"unpackage/res/icons/120x120.png","notification@3x":"unpackage/res/icons/60x60.png","notification@2x":"unpackage/res/icons/40x40.png" /*iPhone6Plus设置页面程序图标，分辨率：87x87*/
+                    },
+                    "ipad": {
+                        "normal": "", /*iPad普通屏幕程序图标，分辨率：72x72*/
+                        "retina": "", /*iPad高分屏程序图标，分辨率：144x144*/
+                         /*iPad iOS7程序图标，分辨率：76x76*/
+                         /*iPad iOS7高分屏程序图标，分辨率：152x152*/
+                        "spotlight-normal": "", /*iPad Spotlight搜索程序图标，分辨率：50x50*/
+                        "spotlight-retina": "", /*iPad高分屏Spotlight搜索程序图标，分辨率：100x100*/
+                        /*iPad iOS7 Spotlight搜索程序图标，分辨率：40x40*/
+                        /*iPad iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*/
+                        /*iPad设置页面程序图标，分辨率：29x29*/
+                        "app":"unpackage/res/icons/76x76.png","app@2x":"unpackage/res/icons/152x152.png","settings":"unpackage/res/icons/29x29.png","proapp@2x":"unpackage/res/icons/167x167.png","spotlight":"unpackage/res/icons/40x40.png","settings@2x":"unpackage/res/icons/58x58.png","spotlight@2x":"unpackage/res/icons/80x80.png","notification":"unpackage/res/icons/20x20.png","notification@2x":"unpackage/res/icons/40x40.png" /*iPad高分屏设置页面程序图标，分辨率：58x58*/
+                    },"appstore":"unpackage/res/icons/1024x1024.png"
+                },
+                "android": {
+                    "mdpi": "unpackage/res/icons/48x48.png", /*普通屏程序图标，分辨率：48x48*/
+                    "ldpi": "unpackage/res/icons/48x48.png", /*大屏程序图标，分辨率：48x48*/
+                    "hdpi": "unpackage/res/icons/72x72.png", /*高分屏程序图标，分辨率：72x72*/
+                    "xhdpi": "unpackage/res/icons/96x96.png",/*720P高分屏程序图标，分辨率：96x96*/
+                    "xxhdpi": "unpackage/res/icons/144x144.png","xxxhdpi":"unpackage/res/icons/192x192.png"/*1080P 高分屏程序图标，分辨率：144x144*/
+                }
+            },
+            "splashscreen": {
+                "ios": {
+                    "iphone": {
+                        "default": "", /*iPhone3启动图片选，分辨率：320x480*/
+                        "retina35": "",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+                        "retina40": "",/*4.0 英寸设备(iPhone5/iPhone5s)启动图片，分辨率：640x1136*/
+                        "retina47": "",/*4.7 英寸设备(iPhone6)启动图片，分辨率：750x1334*/
+                        "retina55": "",/*5.5 英寸设备(iPhone6 Plus)启动图片，分辨率：1242x2208*/
+                        "retina55l": ""/*5.5 英寸设备(iPhone6 Plus)横屏启动图片，分辨率：2208x1242*/
+                    },
+                    "ipad": {
+                        "portrait": "", /*iPad竖屏启动图片，分辨率：768x1004*/
+                        "portrait-retina": "",/*iPad高分屏竖屏图片，分辨率：1536x2008*/
+                        "landscape": "", /*iPad横屏启动图片，分辨率：1024x748*/
+                        "landscape-retina": "", /*iPad高分屏横屏启动图片，分辨率：2048x1496*/
+                        "portrait7": "", /*iPad iOS7竖屏启动图片，分辨率：768x1024*/
+                        "portrait-retina7": "",/*iPad iOS7高分屏竖屏图片，分辨率：1536x2048*/
+                        "landscape7": "", /*iPad iOS7横屏启动图片，分辨率：1024x768*/
+                        "landscape-retina7": ""/*iPad iOS7高分屏横屏启动图片，分辨率：2048x1536*/
+                    }
+                },
+                "android": {
+                    "mdpi": "", /*普通屏启动图片，分辨率：240x282*/
+                    "ldpi": "", /*大屏启动图片，分辨率：320x442*/
+                    "hdpi": "", /*高分屏启动图片，分辨率：480x762*/
+                    "xhdpi": "", /*720P高分屏启动图片，分辨率：720x1242*/
+                    "xxhdpi": ""/*1080P高分屏启动图片，分辨率：1080x1882*/
+                }
+            }
+        }
+    },
+	"dependencies": {
+		"pages": {
+			"picview.html": {
+				"resources": [
+					"jQuerh H5移动端图片预览插件fly_zomm_img.js_files/jquery.qrcode.min.js.下载",
+					"jQuerh H5移动端图片预览插件fly_zomm_img.js_files/f.txt",
+					"jQuerh H5移动端图片预览插件fly_zomm_img.js_files/pace-theme-barber-shop.css",
+					"jQuerh H5移动端图片预览插件fly_zomm_img.js_files/jquery.min.js.下载",
+					"jQuerh H5移动端图片预览插件fly_zomm_img.js_files/demo.css",
+					"jQuerh H5移动端图片预览插件fly_zomm_img.js_files/pace.min.js.下载",
+					"jQuerh H5移动端图片预览插件fly_zomm_img.js_files/hm.js.下载",
+					"jQuerh H5移动端图片预览插件fly_zomm_img.js_files/fly-zoom-img201708241143.html",
+					"jQuerh H5移动端图片预览插件fly_zomm_img.js_files/jquery.min.js",
+					"jQuerh H5移动端图片预览插件fly_zomm_img.js_files/jquery.qrcode.min.js",
+					"jQuerh H5移动端图片预览插件fly_zomm_img.js_files/pace.min.js",
+					"jQuerh H5移动端图片预览插件fly_zomm_img.js_files/hm.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"welcom.html": {
+				"resources": [
+					"jQuerh H5移动端图片预览插件fly_zomm_img.js_files/fly-zoom-img201708241143.html"
+				],
+				"refer": [
+					"client_index.html"
+				],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"css/layer.css",
+				"css/icons/social-twitter.png",
+				"css/icons/blog.png",
+				"video/d10.jpg",
+				"js/jquery.SuperSlide.2.1.1.js",
+				"images/movie3.png",
+				"css/icons/title.png",
+				"images/d1.jpg",
+				"video/15.jpg",
+				"video/9.jpg",
+				"css/icons/grid.png",
+				"Play.html",
+				"video/d9.jpg",
+				"video/22.jpg",
+				"images/right.png",
+				"css/viewer.css",
+				"images/movie1.png",
+				"js/layer.js",
+				"js/jquery.min.js(1).下载",
+				"js/nivo.js",
+				"css/icons/android.png",
+				"css/nivo.css",
+				"images/poster2.jpg",
+				"css/icons/home.png",
+				"japanartistlist.html",
+				"images/star.png",
+				"video/11.jpg",
+				"video/d8.jpg",
+				"images/search.png",
+				"css/icons/to-right-arrow.png",
+				"images/nav-bg.png",
+				"css/icons/calendar.png",
+				"video/7.jpg",
+				"index.html",
+				"video/6.jpg",
+				"images/down.png",
+				"css/icons/to-left-arrow.png",
+				"css/custom_colors.html",
+				"js/isotope.js",
+				"video/12.jpg",
+				"js/layer_mobile/need/layer.css",
+				"js/video.min.js",
+				"video/20.jpg",
+				"video/17.jpg",
+				"css/icons/info-icon-b.png",
+				"css/icons/clients.png",
+				"css/icons/mail-b.png",
+				"video/19.jpg",
+				"video/1.jpg",
+				"css/icons/connection.png",
+				"css/icons/star-icon-b.png",
+				"images/icon_home.png",
+				"css/img/ajax-loader.gif",
+				"honor.html",
+				"video/14.jpg",
+				"jQuerh H5移动端图片预览插件fly_zomm_img.js_files/4.jpg",
+				"jQuerh H5移动端图片预览插件fly_zomm_img.js_files/jquery-1.10.2.js.下载",
+				"css/icons/faq.png",
+				"js/jwplayer/jwplayer.js",
+				"css/custom.css",
+				"jQuerh H5移动端图片预览插件fly_zomm_img.js_files/3.jpg",
+				"js/layer_mobile/layer.js",
+				"video/d1.jpg",
+				"images/slider.jpg",
+				"images/logo.png",
+				"css/icons/to-right-arrow-double.png",
+				"js/jquery-1.10.2.js.下载",
+				"video/3.jpg",
+				"css/icons/to-left-icon-black.png",
+				"css/img/search-box.png",
+				"css/img/facebook.png",
+				"jQuerh H5移动端图片预览插件fly_zomm_img.js_files/5.jpg",
+				"jQuerh H5移动端图片预览插件fly_zomm_img.js_files/2.jpg",
+				"css/icons/tag-cloud.png",
+				"css/img/to-left-icon-white.png",
+				"aaaaaaa.html",
+				"css/icons/phone.png",
+				"js/jwplayer/jwplayer.html5.js",
+				"css/swiper.min.css",
+				"js/bootstrap.js",
+				"css/icons/drupal.png",
+				"js/jquery.mousewheel.js",
+				"video/2.jpg",
+				"css/icons/portfolio.png",
+				"css/icons/social-youtube.png",
+				"jQuerh H5移动端图片预览插件fly_zomm_img.js_files/jquery.min.js(1).下载",
+				"css/icons/connection-w.png",
+				"css/img/plus.png",
+				"js/layer.js.下载",
+				"css/icons/social-facebook.png",
+				"video/4.jpg",
+				"css/icons/social-whale.png",
+				"video/d7.jpg",
+				"js/caroufredsel.js",
+				"css/bootstrap.css",
+				"setip.html",
+				"images/left.png",
+				"css/icons/contact.png",
+				"video/16.jpg",
+				"js/tinyscrollbar.js",
+				"css/img/to-right-arrow.png",
+				"video/18.jpg",
+				"css/icons/info-icon.png",
+				"video/d2.jpg",
+				"video/d11.jpg",
+				"js/main.js",
+				"jQuerh H5移动端图片预览插件fly_zomm_img.js_files/fly-zomm-img.min.js.下载",
+				"library.html",
+				"css/img/minus.png",
+				"css/main.css",
+				"css/img/logo.png",
+				"japanvideolist.html",
+				"viewpic.html",
+				"js/custom.js",
+				"images/up.png",
+				"jQuerh H5移动端图片预览插件fly_zomm_img.js_files/6.jpg",
+				"css/img/favicon.ico",
+				"js/jwplayer/jwplayer.flash.swf",
+				"images/poster3.jpg",
+				"css/video-js.min.css",
+				"images/honor2.jpg",
+				"css/icons/announce.png",
+				"video/13.jpg",
+				"css/img/line-pattern.png",
+				"detail.html",
+				"video/5.jpg",
+				"video/d6.jpg",
+				"js/swiper.min.js",
+				"css/icons/services.png",
+				"css/icons/twitter-white-icon.png",
+				"css/grid.css",
+				"video/d4.jpg",
+				"js/jquery.min.js(1)",
+				"css/icons/link.png",
+				"images/honor1.png",
+				"video/23.jpg",
+				"japanlist.html",
+				"js/jquery.js",
+				"jQuerh H5移动端图片预览插件fly_zomm_img.js_files/1.jpg",
+				"js/viewer.js",
+				"video/10.jpg",
+				"css/icons/doc-list.png",
+				"js/jquery-1.11.2.min.js",
+				"css/icons/to-left-arrow-double.png",
+				"video/d3.jpg",
+				"css/icons/mail.png",
+				"video/d5.jpg",
+				"search.html",
+				"css/img/twitter.png",
+				"css/icons/pencil.png",
+				"css/icons/aboutus.png",
+				"video/8.jpg",
+				"css/img/vimeo.png",
+				"comiclist.html",
+				"js/japanvideo.js",
+				"css/icons/magnifier.png",
+				"video/21.jpg",
+				"images/movie2.png",
+				"css/icons/twitter.png",
+				"images/poster1.jpg",
+				"japanvideo.html",
+				"css/reset.css",
+				"css/layui.css",
+				"css/icons/welcome.png",
+				"css/img/sideway-bg.png"
+			]
+		}
+	}
+}

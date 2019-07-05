@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.javen.mapping.PicBackupMapper" >
+  <resultMap id="BaseResultMap" type="com.javen.model.PicBackup" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="ADDR" property="addr" jdbcType="VARCHAR" />
+    <result column="ARTIST" property="artist" jdbcType="VARCHAR" />
+    <result column="LANGUAGE" property="language" jdbcType="VARCHAR" />
+    <result column="CATEGORY" property="category" jdbcType="VARCHAR" />
+    <result column="COVER" property="cover" jdbcType="VARCHAR" />
+    <result column="DATA" property="data" jdbcType="CHAR" />
+    <result column="ISEXIST" property="isexist" jdbcType="VARCHAR" />
+    <result column="LV" property="lv" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, NAME, ADDR, ARTIST, LANGUAGE, CATEGORY, COVER, DATA, ISEXIST, LV
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.javen.model.PicBackupExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PIC_BACKUP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from PIC_BACKUP
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from PIC_BACKUP
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.javen.model.PicBackupExample" >
+    delete from PIC_BACKUP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.javen.model.PicBackup" >
+    insert into PIC_BACKUP (ID, NAME, ADDR, 
+      ARTIST, LANGUAGE, CATEGORY, 
+      COVER, DATA, ISEXIST, 
+      LV)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, 
+      #{artist,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, 
+      #{cover,jdbcType=VARCHAR}, #{data,jdbcType=CHAR}, #{isexist,jdbcType=VARCHAR}, 
+      #{lv,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.javen.model.PicBackup" >
+    insert into PIC_BACKUP
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="addr != null" >
+        ADDR,
+      </if>
+      <if test="artist != null" >
+        ARTIST,
+      </if>
+      <if test="language != null" >
+        LANGUAGE,
+      </if>
+      <if test="category != null" >
+        CATEGORY,
+      </if>
+      <if test="cover != null" >
+        COVER,
+      </if>
+      <if test="data != null" >
+        DATA,
+      </if>
+      <if test="isexist != null" >
+        ISEXIST,
+      </if>
+      <if test="lv != null" >
+        LV,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="artist != null" >
+        #{artist,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null" >
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="data != null" >
+        #{data,jdbcType=CHAR},
+      </if>
+      <if test="isexist != null" >
+        #{isexist,jdbcType=VARCHAR},
+      </if>
+      <if test="lv != null" >
+        #{lv,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.javen.model.PicBackupExample" resultType="java.lang.Integer" >
+    select count(*) from PIC_BACKUP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PIC_BACKUP
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addr != null" >
+        ADDR = #{record.addr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.artist != null" >
+        ARTIST = #{record.artist,jdbcType=VARCHAR},
+      </if>
+      <if test="record.language != null" >
+        LANGUAGE = #{record.language,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null" >
+        CATEGORY = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cover != null" >
+        COVER = #{record.cover,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data != null" >
+        DATA = #{record.data,jdbcType=CHAR},
+      </if>
+      <if test="record.isexist != null" >
+        ISEXIST = #{record.isexist,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lv != null" >
+        LV = #{record.lv,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PIC_BACKUP
+    set ID = #{record.id,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      ADDR = #{record.addr,jdbcType=VARCHAR},
+      ARTIST = #{record.artist,jdbcType=VARCHAR},
+      LANGUAGE = #{record.language,jdbcType=VARCHAR},
+      CATEGORY = #{record.category,jdbcType=VARCHAR},
+      COVER = #{record.cover,jdbcType=VARCHAR},
+      DATA = #{record.data,jdbcType=CHAR},
+      ISEXIST = #{record.isexist,jdbcType=VARCHAR},
+      LV = #{record.lv,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javen.model.PicBackup" >
+    update PIC_BACKUP
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        ADDR = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="artist != null" >
+        ARTIST = #{artist,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null" >
+        LANGUAGE = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        CATEGORY = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        COVER = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="data != null" >
+        DATA = #{data,jdbcType=CHAR},
+      </if>
+      <if test="isexist != null" >
+        ISEXIST = #{isexist,jdbcType=VARCHAR},
+      </if>
+      <if test="lv != null" >
+        LV = #{lv,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javen.model.PicBackup" >
+    update PIC_BACKUP
+    set NAME = #{name,jdbcType=VARCHAR},
+      ADDR = #{addr,jdbcType=VARCHAR},
+      ARTIST = #{artist,jdbcType=VARCHAR},
+      LANGUAGE = #{language,jdbcType=VARCHAR},
+      CATEGORY = #{category,jdbcType=VARCHAR},
+      COVER = #{cover,jdbcType=VARCHAR},
+      DATA = #{data,jdbcType=CHAR},
+      ISEXIST = #{isexist,jdbcType=VARCHAR},
+      LV = #{lv,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

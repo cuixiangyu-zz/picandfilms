@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>日本电影</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <script src="js/jquery.js"></script>
+	<link rel='icon' href='css/img/favicon.ico' type='image/ico' />
+
+    <!--[if lt IE 9]>
+    <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="js/ie.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    
+    <link href="css/reset.css" rel="stylesheet">
+    <link href="css/grid.css" rel="stylesheet">
+    <link href="css/nivo.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/custom_colors.html" rel="stylesheet">
+    <style>
+
+ul.pagination {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    text-align:center;
+}
+
+.pagenum{
+/* height: 40px;
+border: 2px solid #CDCDCD; */
+text-align: center;
+/* background: #E8E8E8;
+margin: 90px auto;
+padding-top: 10px; */
+}
+
+ul.pagination li {display: inline;}
+
+ul.pagination li a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+}
+
+.pagination li:first-child a {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.pagination li:last-child a {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+ul.pagination li a.active {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+}
+ul.pagination{ text-align:center} 
+	
+        
+
+ul.pagination li a:hover:not(.active) {background-color: #ddd;}
+
+
+</style>
+</head>
+
+<body>
+
+<div id="page_wrap">
+
+    <header>
+
+        <div class="logo-container">
+
+            <a id="logo" title="Metro Creative Design" href="index.html"><img src="css/img/logo.png" alt="Metro Creative Design"></a>
+
+        </div><!-- Logo Side ENDS -->
+	<div class="headerpage"></div>
+	
+	<script>
+    $(function(){
+        /*公共部分
+         * 导航栏
+         * footer CopyRight
+         */
+        $(".headerpage").load("left.html");
+		$(".footer-menu").load("footmenu.html");	
+   var data = {"page":1};
+   var oldurl = window.location.href;
+   if(oldurl.indexOf("?")<=0){
+   oldurl=1
+   }else{
+   oldurl = oldurl.slice(oldurl.indexOf("?")+13, oldurl.length);
+   }
+   
+    $.ajax({
+            url : "/picandfilms/gotonextjapanartistpage.do?currentPage="+oldurl,
+            async : true,
+            data:data,
+            dataType : 'json',
+            type : 'post',
+            success : function(rtn, textStatus) {
+                //业务控制
+                var pagehtml = "";
+ 				for(var i = 0 ;i <rtn.japanvideoBaseinfo.length;i++){
+ 					pagehtml1="<div class=\"item\"><img src=\"/videocover/"+rtn.japanvideoBaseinfo[i].cover+".jpg\" alt=\"carousel item\" /><div class=\"item-background background-color\"></div><a href=\"/artist.do?artist="+rtn.japanvideoBaseinfo[i].artist+"\" class=\"itemtitle\" title=\"carousel item\" target=\"_blank\">by "+rtn.japanvideoBaseinfo[i].artist+"</a><a href=\"/picandfilms/videoplayer.html?id="+rtn.japanvideoBaseinfo[i].id+"\" class=\"itemsubtitle\" title=\"carousel item\" target=\"_blank\">"+rtn.japanvideoBaseinfo[i].id+"</a></div>";
+ 					pagehtml+=pagehtml1; 
+ 				}
+ 				$("#showphoto").append(pagehtml);
+ 				var pagenum = "<div class=\"pagenum\"><ul class=\"pagination\" c><li><a href=\"/picandfilms/japanvideo.html?currentPage="+1+"\">«</li>";
+ 				if(rtn.currentPage<=5){
+ 					if(rtn.totalPage<10){
+ 					for(var i = 1 ;i <rtn.totalPage;i++){
+ 						if(rtn.currentPage==i){
+ 							var pagenum1="<li><a class=\"active\" href=\"#\">"+i+"</a></li>";
+ 							pagenum+=pagenum1;
+ 						}else{
+ 							var pagenum1="<li><a href=\"/picandfilms/japanvideo.html?currentPage="+i+"\">"+i+"</a></li>";
+ 							pagenum+=pagenum1;
+ 						}
+ 					
+ 					}
+ 					}else{
+ 					for(var i = 1 ;i <10;i++){
+ 						if(rtn.currentPage==i){
+ 							var pagenum1="<li><a class=\"active\" href=\"#\">"+i+"</a></li>";
+ 							pagenum+=pagenum1;
+ 						}else{
+ 							var pagenum1="<li><a href=\"/picandfilms/japanvideo.html?currentPage="+i+"\">"+i+"</a></li>";
+ 							pagenum+=pagenum1;
+ 						}
+ 					
+ 					}
+ 					}
+ 					
+ 					
+ 				}else{
+ 					if(rtn.currentPage+4>rtn.totalPage){
+ 					for(var i = rtn.currentPage-4 ;i <rtn.totalPage;i++){
+ 						if(rtn.currentPage==i){
+ 							var pagenum1="<li><a class=\"active\" href=\"#\">"+i+"</a></li>";
+ 							pagenum+=pagenum1;
+ 						}else{
+ 							var pagenum1="<li><a href=\"/picandfilms/japanvideo.html?currentPage="+i+"\">"+i+"</a></li>";
+ 							pagenum+=pagenum1;
+ 						}
+ 					
+ 					}
+ 					}else{
+ 					for(var i = rtn.currentPage-4 ;i <rtn.currentPage+4;i++){
+ 						if(rtn.currentPage==i){
+ 							var pagenum1="<li><a class=\"active\" href=\"#\">"+i+"</a></li>";
+ 							pagenum+=pagenum1;
+ 						}else{
+ 							var pagenum1="<li><a href=\"/picandfilms/japanvideo.html?currentPage="+i+"\">"+i+"</a></li>";
+ 							pagenum+=pagenum1;
+ 						}
+ 					
+ 					}
+ 					}
+ 					
+ 				}
+ 				
+                pagenum+=" <li><a href=\"/picandfilms/japanvideo.html?currentPage="+rtn.totalPage+"\">»</a></li></ul></div>";
+                $("#pagenum11").append(pagenum);
+            },
+            error : function(jqXHR, textStatus,
+                    errorThrown) {
+                var sessionstatus = jqXHRgetResponseHeader("sessionstatus");
+                if (sessionstatus == "timeout") {
+                    alert(i1510.sessionOutMes);
+                    var req_address = i1510.sessionOutUrl;
+                    window.location.href = req_address;
+                }
+            }
+ 
+        });
+    });
+</script>
+        
+
+    </header><!-- Left Side ENDS -->
+
+    <div id="subLevel" class="border-color background-color">
+
+        <div id="opener" class="border-left-color border-top-color"><div class="opener-plus"></div></div>
+        <ul id="home">
+            <li><a class="border-color-darker" href="index.html">Metro Slider</a></li>
+            <li><a class="border-color-darker" href="index-normal-slider.html">Normal Slider</a></li>
+        </ul>
+        <ul id="about">
+            <li><a class="border-color-darker" href="aboutus.html">About Us</a></li>
+            <li><a class="border-color-darker" href="headers.html">Headers</a></li>
+            <li><a class="border-color-darker" href="columns.html">Columns</a></li>
+            <li><a class="border-color-darker" href="shortcodes.html">Shortcodes</a></li>
+        </ul>
+        <ul id="portfolio">
+            <li><a class="border-color-darker" href="portfolio.html">Portfolio Style 1</a></li>
+            <li><a class="border-color-darker" href="portfolio-full-images.html">Portfolio Style 2</a></li>
+            <li><a class="border-color-darker" href="portfolio-with-texts.html">Portfolio Style 3</a></li>
+            <li><a class="border-color-darker" href="portfolio-details.html">Portfolio Detail</a></li>
+            <li><a class="border-color-darker" href="portfolio-details-slider.html">Portfolio With Slider</a></li>
+            <li><a class="border-color-darker" href="portfolio-details-vimeo.html">Portfolio With Vimeo</a></li>
+            <li><a class="border-color-darker" href="portfolio-details-youtube.html">Portfolio With Youtube</a></li>
+        </ul>
+
+    </div><!-- Sub Level ENDS -->
+
+    <div class="rightSide">
+
+
+        <div class="row">
+
+            <div class="twelve columns">
+
+                <div class="carousel margin-tb-20" id="showphoto">
+
+                    
+                </div>
+
+            </div>
+
+        </div><!-- Carousel ENDS -->
+	<div class="pagenum11" id="pagenum11"></div>
+        <div class="pagenum" ></div>
+
+        <div class="row footer background-color">
+
+            <div class="twelve columns">
+
+                <div class="footer-menu">
+
+                    <div class="footer-menu"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div><!-- RightSide ENDS -->
+
+</div><!-- Page Wrap ENDS -->
+
+<div id="toTop"></div>
+
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/isotope.js"></script>
+
+<script src="js/caroufredsel.js"></script>
+<script src="js/nivo.js"></script>
+<script src="js/jquery.mousewheel.js"></script>
+<script src="js/tinyscrollbar.js"></script>
+<script src="js/custom.js"></script>
+<!--[if lte IE 9]>
+<script src="js/respond.min.js"></script>
+<![endif]-->
+</body>
+</html>

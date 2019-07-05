@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.javen.mapping.JapanvideoArtistMapper" >
+  <resultMap id="BaseResultMap" type="com.javen.model.JapanvideoArtist" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ARTIST" property="artist" jdbcType="VARCHAR" />
+    <result column="DATA" property="data" jdbcType="CHAR" />
+    <result column="ADDR" property="addr" jdbcType="VARCHAR" />
+    <result column="LV" property="lv" jdbcType="VARCHAR" />
+    <result column="Quantity" property="quantity" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, ARTIST, DATA, ADDR,LV,quantity
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.javen.model.JapanvideoArtistExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    <choose>
+      <when test="orderByClause != null">
+        from (select b.* ,rownum rounum from (select a.* from japanvideo_artist a order by ${orderByClause}) b)
+      </when>
+      <otherwise>
+        from (select a.* ,rownum rounum from japanvideo_artist a )
+      </otherwise>
+    </choose>
+    <!--from (select a.* ,rownum rounum from japanvideo_artist a
+
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+
+    )-->
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+
+  </select>
+  <select id="select" resultType="map" parameterType="java.lang.String" >
+    ${_parameter}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from JAPANVIDEO_ARTIST
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from JAPANVIDEO_ARTIST
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.javen.model.JapanvideoArtistExample" >
+    delete from JAPANVIDEO_ARTIST
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.javen.model.JapanvideoArtist" >
+    insert into JAPANVIDEO_ARTIST (ID, ARTIST, DATA, 
+      addr,lv,Quantity)
+    values (#{id,jdbcType=VARCHAR}, #{artist,jdbcType=VARCHAR}, #{data,jdbcType=CHAR}, 
+      #{addr,jdbcType=VARCHAR},#{lv,jdbcType=VARCHAR},#{Quantity,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.javen.model.JapanvideoArtist" >
+    insert into JAPANVIDEO_ARTIST
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="artist != null" >
+        ARTIST,
+      </if>
+      <if test="data != null" >
+        DATA,
+      </if>
+      <if test="addr != null" >
+        ADDR,
+      </if>
+      <if test="lv != null" >
+        LV,
+      </if>
+      <if test="Quantity != null" >
+        Quantity,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="artist != null" >
+        #{artist,jdbcType=VARCHAR},
+      </if>
+      <if test="data != null" >
+        #{data,jdbcType=CHAR},
+      </if>
+      <if test="addr != null" >
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="lv != null" >
+        #{lv,jdbcType=VARCHAR},
+      </if>
+      <if test="Quantity != null" >
+        #{Quantity,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.javen.model.JapanvideoArtistExample" resultType="java.lang.Integer" >
+    select count(*) from JAPANVIDEO_ARTIST
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update JAPANVIDEO_ARTIST
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.artist != null" >
+        ARTIST = #{record.artist,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data != null" >
+        DATA = #{record.data,jdbcType=CHAR},
+      </if>
+      <if test="record.addr != null" >
+        ADDR = #{record.addr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lv != null" >
+        LV = #{record.lv,jdbcType=VARCHAR},
+      </if>
+      <if test="record.Quantity != null" >
+        Quantity = #{record.Quantity,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update JAPANVIDEO_ARTIST
+    set ID = #{record.id,jdbcType=VARCHAR},
+      ARTIST = #{record.artist,jdbcType=VARCHAR},
+      DATA = #{record.data,jdbcType=CHAR},
+      ADDR = #{record.addr,jdbcType=VARCHAR}
+    LV = #{record.lv,jdbcType=VARCHAR}
+    Quantity = #{record.Quantity,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javen.model.JapanvideoArtist" >
+    update JAPANVIDEO_ARTIST
+    <set >
+      <if test="artist != null" >
+        ARTIST = #{artist,jdbcType=VARCHAR},
+      </if>
+      <if test="data != null" >
+        DATA = #{data,jdbcType=CHAR},
+      </if>
+      <if test="addr != null" >
+        ADDR = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="lv != null" >
+        LV = #{lv,jdbcType=VARCHAR},
+      </if>
+      <if test="Quantity != null" >
+        Quantity = #{Quantity,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javen.model.JapanvideoArtist" >
+    update JAPANVIDEO_ARTIST
+    set ARTIST = #{artist,jdbcType=VARCHAR},
+      DATA = #{data,jdbcType=CHAR},
+      ADDR = #{addr,jdbcType=VARCHAR}
+      LV = #{lv,jdbcType=VARCHAR}
+      Quantity = #{Quantity,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

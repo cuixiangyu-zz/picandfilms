@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>testjson.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script src="js/jquery.js"></script>
+  </head>
+  
+  <body>
+    This is my HTML page. <br>
+    <script type="text/javascript">
+   $(function(){
+   var data = null;
+    $.ajax({
+            url : "/picandfilms/giveJson.do",
+            async : true,
+            data:data,
+            dataType : 'json',
+            type : 'GET',
+            success : function(rtn, textStatus) {
+                //业务控制
+                alert(rtn.name);
+ 
+            },
+            error : function(jqXHR, textStatus,
+                    errorThrown) {
+                var sessionstatus = jqXHRgetResponseHeader("sessionstatus");
+                if (sessionstatus == "timeout") {
+                    alert(i1510.sessionOutMes);
+                    var req_address = i1510.sessionOutUrl;
+                    window.location.href = req_address;
+                }
+            }
+ 
+        });})
+        </script>
+  </body>
+</html>

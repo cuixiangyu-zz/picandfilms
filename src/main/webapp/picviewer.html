@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		<meta content="" name="Keywords">
+		<meta content="" name="Description">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+		<link rel="stylesheet" href="css/main.css" type="text/css" />
+		<link rel="stylesheet" href="css/swiper.min.css" type="text/css" />
+		<script src="js/jquery-valideasy.js"></script>
+		<link rel="stylesheet" href="css/main.css">
+		<script src="js/jquery-1.11.2.min.js"></script>
+		<script src="js/swiper.min.js"></script>
+		<script src="js/main.js"></script>
+		<script src="css/bootstrap.css" type="text/javascript"></script>
+		<title>产品列表</title>
+	</head>
+	<style>
+		.swiper-slide {
+			text-align: center;
+			color: #919191;
+		}
+	</style>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+		}
+		
+		a,
+		img {
+			border: 0;
+		}
+		
+		body {
+			font: 12px/180% Arial, Helvetica, sans-serif, "新宋体";
+		}
+		/* gallery */
+		
+		.gallery {
+			width: 214px;
+			margin: 40px auto 0 auto;
+		}
+		
+		.gallery li {
+			display: block;
+			float: left;
+			height: 100px;
+			margin-bottom: 6px;
+			margin-right: 6px;
+			width: 100px;
+		}
+		
+		.gallery li a {
+			height: 100px;
+			width: 100px;
+		}
+		
+		.gallery li a img {
+			max-width: 100px;
+		}
+	</style>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+		}
+		
+		a,
+		img {
+			border: 0;
+		}
+		
+		body {
+			font: 12px/180% Arial, Helvetica, sans-serif, "新宋体";
+		}
+		/* gallery */
+		
+		.gallery {
+			width: 214px;
+			margin: 40px auto 0 auto;
+		}
+		
+		.gallery li {
+			display: block;
+			float: left;
+			height: 100px;
+			margin-bottom: 6px;
+			margin-right: 6px;
+			width: 100px;
+		}
+		
+		.gallery li a {
+			height: 100px;
+			width: 100px;
+		}
+		
+		.gallery li a img {
+			max-width: 100px;
+		}
+	</style>
+
+	<!--必要样式-->
+	<link rel="stylesheet" type="text/css" href="css/lightGallery.css" />
+
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/lightGallery.min.js"></script>
+
+	<script type="text/javascript">
+		function search(){
+		alert("搜索");
+	}
+	function insert(){
+		
+		var storage = window.localStorage;
+					var ip = storage.getItem("ip");
+		alert("提交");
+		var lv=$("#example13_name").val();
+		var id=$("#example13_name").attr("name");
+		if (!isNaN(lv)&&lv>0&&lv<=10) {
+			
+			$
+			.ajax({
+				url: "http://"+ip+"/picandfilms/updatepicturelv.do?id="+id+"&lv="+lv,
+
+				data: "",
+				dataType: 'json',
+				type: 'get',
+				success: function(rtn) {
+					
+					$("#example13_name").val(lv);
+				},
+				error: function() {
+
+				}
+
+			}).done().fail(function() {
+
+			});
+					
+					
+			alert(lv);
+		}else{
+			alert("请输入0-10的数字");
+		}
+	}
+		$(function() {
+					var url = location.search;
+					var id = url.split("=")[1];
+					/*var id = "130868";*/
+					var storage = window.localStorage;
+					var ip = storage.getItem("ip");
+					$
+						.ajax({
+							url: "http://" + ip + "/picandfilms/getpicdetails.do?id=" + id,
+							async: true,
+							data: '',
+							dataType: 'json',
+							type: 'post',
+							success: function(rtn, textStatus) {
+
+								//业务控制
+								//zuozhe
+								$("#title").html(rtn.picBaseinfo.name);
+								if(rtn.artist.length > 0) {
+									var artisthtml = "<div class=\"demo2\"><h2  align=\"center\">作者</h2><div id =\"artist\" class=\"swiper-container\"><div class=\"swiper-wrapper\" >";
+
+									for(var i = 0; i < rtn.artist.length; i++) {
+										if(i != 0 && i % 5 == 0) {
+											artisthtml += "</div><div class=\"swiper-wrapper\" ><div class=\"swiper-slide\" name=\"artist\" id=\"" + rtn.artist[i] + "\">" + rtn.artist[i] + "</div>";
+										} else {
+											artisthtml += "<div class=\"swiper-slide\" name=\"artist\" id=\"" + rtn.artist[i] + "\">" + rtn.artist[i] + "</div>";
+										}
+
+									}
+									artisthtml += "</div></div></div>";
+									$("#test").append(artisthtml);
+								}
+								$("#example13_name").val(rtn.picBaseinfo.lv);
+								$("#example13_name").attr("name", rtn.picBaseinfo.id);
+								//fenlei
+								if(rtn.picCategorys.length > 0) {
+									var picCategoryshtml = "<div class=\"demo2\"><h2  align=\"center\">分类</h2><div id =\"category\" class=\"swiper-container\"><div class=\"swiper-wrapper\" >";
+
+									for(var i = 0; i < rtn.picCategorys.length; i++) {
+										if(i != 0 && i % 5 == 0) {
+											picCategoryshtml += "</div><div class=\"swiper-wrapper\"><div class=\"swiper-slide\" name=\"category\" id=\"" + rtn.picCategorys[i].id + "\">" + rtn.picCategorys[i].categoryname + "</div>";
+										} else {
+											picCategoryshtml += "<div class=\"swiper-slide\" name=\"category\" id=\"" + rtn.picCategorys[i].id + "\">" + rtn.picCategorys[i].categoryname + "</div>";
+										}
+
+									}
+									picCategoryshtml += "</div></div></div>";
+									$("#test").append(picCategoryshtml);
+								}
+
+								//fenlei
+								if(rtn.picBaseinfo.language != null) {
+									var language = "<div class=\"demo2\"><h2 id=\"\" align=\"center\">语言</h2><div id =\"category\" class=\"swiper-container\"><div class=\"swiper-wrapper\" >";
+									language += "<div class=\"swiper-slide\" name=\"language\" id=\"" + rtn.picBaseinfo.language + "\">" + rtn.picBaseinfo.language + "</div>"
+
+									language += "</div></div></div>";
+									$("#test").append(language);
+								}
+								if(rtn.addrs.length > 0) {
+									var pichtml = "";
+									for(var i = 0; i < rtn.addrs.length; i++) {
+										pichtml += "<li data-src=\"http://" + ip + rtn.addrs[i] + "\"><a><img src=\"http://" + ip + rtn.addrs[i] + "\" /></a></li>";
+									}
+									$("#auto-loop").append(pichtml);
+								}
+
+								$(".swiper-slide").click(function() {
+
+									var classname = $(this).attr("class");
+									/*alert(classname);*/
+									if(classname.indexOf("selected") > 0) {
+										$(this).removeClass("selected")
+									} else {
+										$(this).addClass("selected");
+									}
+
+									/*.siblings().removeClass("selected")*/
+								});
+
+								$("#auto-loop").lightGallery({
+									loop: true,
+									auto: false,
+									pause: 4000,
+									speed: 10
+								});
+
+							},
+							error: function(jqXHR, textStatus, errorThrown) {
+								/* var sessionstatus = jqXHRgetResponseHeader("sessionstatus");
+								if (sessionstatus == "timeout") {
+									alert(i1510.sessionOutMes);
+									var req_address = i1510.sessionOutUrl;
+									window.location.href = req_address;
+								} */
+							}
+
+						});
+});
+					/*$(form).valideasy({
+						'onValidateAfter': function(form, options, isValid) {
+							if(isValid) {
+								form.find('.alert-success').fadeIn();
+							} else {
+								form.find('.alert-success').fadeOut();
+							}
+						}
+					});*/
+	</script>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#lightgallery').lightGallery();
+		});
+	</script>
+
+	<body>
+		<!--头部导航begin-->
+		<header>
+			<div class="container clearfix">
+
+				<ul class="nav fl">
+					<li class="fl">
+						<a href="welcom.html">首页</a>
+					</li>
+					<li class="fl">
+						<a href="comiclist.html">漫画列表</a>
+					</li>
+					<li class="fl">
+						<a class="current" href="picviewer.html">漫画预览</a>
+					</li>
+					<li class="fl">
+						<a href="setip.html">ip</a>
+					</li>
+
+				</ul>
+				
+			</div>
+		</header>
+		<section>
+			
+			<div class="select">
+				<div class="container" id="test">
+					<h1 id="title" align="center"></h1>
+					
+				</div>
+			</div>
+			<form data-valideasy-mode="unified" data-valideasy-errorelementid="example13_errors">
+				<div class="form-group" align="center">
+					<input class="autoclear required" id="example13_name" name="example13_name" title="Name" type="text"  />
+					<input class="autoclear required email" id="example13_email" name="example13_email" title="Email" type="button" onclick=search() value="搜索" />
+					<input class="autoclear required phone" id="example13_phone" name="example13_phone" title="Phone" type="button" onclick=insert() value="提交" />
+				</div>
+				<p class="error-wrapper help-block" id="example13_errors"></p>
+			</form>
+			<ul id="auto-loop" class="gallery">
+				
+			</ul>
+		</section>
+	</body>
+
+</html>

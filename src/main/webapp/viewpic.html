@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>viewer.js强大的响应式图片弹出层(360度旋转、放大缩小)演示-默认效果</title>
+<script src="js/jquery.js"></script>
+<link rel="stylesheet" type="text/css" href="css/layui.css">
+<link rel="stylesheet" href="css/viewer.css">
+<style>
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#sucaihuo {
+	width: 700px;
+	margin: 0 auto;
+	font-size: 0;
+}
+
+#sucaihuo li {
+	display: inline-block;
+	width: 32%;
+	margin-left: 1%;
+	padding-top: 1%;
+}
+
+#sucaihuo li img {
+	width: 100%;
+}
+
+#sucaihuo2 {
+	width: 700px;
+	margin: 0 auto;
+	font-size: 0;
+}
+
+#sucaihuo2 li {
+	display: inline-block;
+	width: 32%;
+	margin-left: 1%;
+	padding-top: 1%;
+}
+
+#sucaihuo2 li img {
+	width: 100%;
+}
+</style>
+<style type="text/css">
+body {
+	padding: 0;
+	margin: 0;
+	color: #444;
+	background: #f2f2f2;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+	border: 0;
+	list-style: none;
+	text-decoration: none;
+}
+
+.wrap {
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.label-selected {
+	width: 100%;
+	min-height: 38px;
+	margin: 10px 0;
+	border: 1px solid #ccc;
+	background-color: #fff;
+	position: relative;
+}
+
+.cell {
+	display: block;
+	width: 90px;
+	height: 28px;
+	line-height: 28px;
+	border: 3px;
+	background: #009688;
+	color: #fff;
+	text-align: center;
+}
+
+.label-selected li {
+	display: inline-block;
+	height: 27px;
+	line-height: 27px;
+	font-size: .8rem;
+	padding: 0 1rem;
+	border: 1px solid #e6e6e6;
+	border-radius: 2px;
+	cursor: pointer;
+	margin: 4px 2px;
+	color: #666;
+}
+
+#labelItem {
+	margin-bottom: 10px;
+	display: none;
+}
+
+.label-item {
+	border: 1px solid #e6e6e6;
+	padding: 10px;
+	border-radius: 0 2px 2px 0;
+	position: relative;
+	overflow: hidden;
+	background: #fff;
+}
+
+.label-item li {
+	display: inline-block;
+	height: 27px;
+	line-height: 27px;
+	font-size: .8rem;
+	padding: 0 1rem;
+	border: 1px solid #e6e6e6;
+	border-radius: 2px;
+	cursor: pointer;
+	margin-bottom: 5px;
+	margin-left: 2px;
+	color: #666;
+}
+
+.label-item .selected {
+	color: #ccc;
+}
+</style>
+</head>
+
+<body>
+	<div class="wrap">
+		<div class="label-selected">
+			<a href="javascript:;" class="layui-btn layui-btn-sm show-labelitem"
+				style="float: right; margin: 4px; display: none; line-height: 30px;">展开标签库
+			</a> <a href="javascript:;" class="layui-btn layui-btn-sm hide-labelitem"
+				style="float: right; margin: 4px; line-height: 30px; display: block;">收起标签库
+			</a> <input type="hidden" name="label" value="">
+		</div>
+		<div class="layui-col-md12" id="labelItem" style="display: block;">
+
+			<div class="label-item">
+				<a href="javascript:;" class="layui-btn" id="finde">查找</a>
+				<div id="artist">
+					<h3>作者</h3>
+				</div>
+				<div id="categories">
+					<h3>分类</h3>
+				</div>
+				<div id="languages">
+					<h3>语言</h3>
+				</div>
+				<div id="level">
+					<h3>分级</h3>
+				</div>
+
+			</div>
+		</div>
+		<a href="javascript:;" class="layui-btn" id="cell">获取</a> <a
+			href="javascript:;" class="layui-btn" id="opendir">打开文件所在目录</a>
+	</div>
+	<h1 id="firsttitle" align="center"></h1>
+	<!-- 展示和弹出图片源异源 -->
+	<ul id="sucaihuo">
+
+	</ul>
+	<br />
+	<br />
+	<br />
+
+
+
+</body>
+<script src="js/viewer.js"></script>
+
+<!-- <script>
+		var viewer = new Viewer(document.getElementById('sucaihuo'), {
+			url: 'data-original'
+		});
+        //var viewer2 = new Viewer(document.getElementById('sucaihuo2'));
+	</script> -->
+<script type="text/javascript">
+		
+		$(function() {
+
+			$(".show-labelitem").on("click", function() {
+				$(this).hide();
+				$(".hide-labelitem").show();
+				$("#labelItem").show();
+			});
+			$(".hide-labelitem").on("click", function() {
+				$(this).hide();
+				$(".show-labelitem").show();
+				$("#labelItem").hide();
+			});
+			$(".label-item")
+					.on(
+							"click",
+							"li",
+							function() {
+								var id = $(this).attr("data");
+								var text = $(this).children("span").html();
+								var labelHTML = "<li data='" + id + "''>x "
+										+ text + "</li>";
+								if ($(this).hasClass("selected")) {
+									return false;
+								} else if ($(".label-selected").children("li").length >= 8) {
+									layer.msg("最多可以选择8个哦");
+									return false;
+								}
+								$(".label-selected").append(labelHTML);
+								val = '';
+								for ( var i = 0; i < $(".label-selected")
+										.children("li").length; i++) {
+									val += $(".label-selected").children("li")
+											.eq(i).attr("data")
+											+ ',';
+								}
+								$("input[name='label']").val(val);
+								$(this).addClass("selected");
+							});
+			var val = "";
+			$(".label-selected").on(
+					"click",
+					"li",
+					function() {
+						var id = $(this).attr("data");
+						val = '';
+						$(this).remove();
+						for ( var i = 0; i < $(".label-selected")
+								.children("li").length; i++) {
+							val += $(".label-selected").children("li").eq(i)
+									.attr("data")
+									+ ',';
+						}
+						$("input[name='label']").val(val);
+						$(".label-item").find("li[data='" + id + "']")
+								.removeClass("selected");
+					});
+
+			//点击更换标签
+			var limit = 0;
+			$(".replacelable")
+					.on(
+							"click",
+							function() {
+								layer.load(1);
+								limit += 32;
+								$
+										.ajax({
+											url : window.location.href,
+											type : "post",
+											datatype : "json",
+											data : {
+												labellimit : limit
+											},
+											success : function(data) {
+												layer.closeAll('loading');
+												$(".label-item").find("li")
+														.remove(); //删除原先所有，本来想让数据表随机搜索的，想着有点mmp，就没搞，用的是limit
+												var html = '';
+												for ( var i in data) {
+													html += "<li data=\"" + data[i].term_id + "\">x<span>"
+															+ data[i].name
+															+ "</span></li>"; //拼接标签
+												}
+												$(".label-item").append(html); //追加至文档
+											},
+											error : function() {
+												layer.closeAll('loading');
+												layer.msg("错误~~~");
+											}
+										})
+							})
+			//获取标签
+			$("#cell").on("click", function() {
+				if ($("input[name='label']").val() == "") {
+					return false;
+				} else {
+					layer.msg("标签内容为：" + $("input[name='label']").val());
+				}
+			})
+			
+		})
+		
+$("#opendir").click(function(){
+		var dir =$("#firsttitle").text();
+		alert(dir);
+					$.ajax({
+							url : "/picandfilms/openfile.do?dir=" + dir,
+							async : true,
+							data : "",
+							dataType : 'json',
+							type : 'post',})
+});
+$("#finde").click(function(){
+		var dir =$("input[name='label']").val(); 
+		alert(dir);
+					/* $.ajax({
+							url : "/picandfilms/openfile.do?dir=" + dir,
+							async : true,
+							data : "",
+							dataType : 'json',
+							type : 'post',})*/
+}); 
+$(function() {
+				var url = location.search;
+				var id = url.split("=")[1];
+				
+				$
+						.ajax({
+							url : "/picandfilms/getpicdetails.do?id=" + id,
+							async : true,
+							data : '',
+							dataType : 'json',
+							type : 'post',
+							success : function(rtn, textStatus) {
+								
+								
+								//业务控制
+								//zuozhe
+								$("#firsttitle").html(rtn.picBaseinfo.name);
+								var artist = "";
+								for(var i = 0; i < rtn.artist.length; i++) { 
+								artist += "<li data=\"A-" + rtn.artist + "\"><span>"
+										+ rtn.artist + "</span></li>";
+								 }
+								$("#artist").append(artist);
+								//fenlei
+								var categories = "";
+								for ( var i = 0; i < rtn.picCategorys.length; i++) {
+									categories += "<li data=\"C-" + rtn.picCategorys[i].id + "\"><span>"
+											+ rtn.picCategorys[i].categoryname
+											+ "</span></li>";
+								}
+								$("#categories").append(categories);
+								//yuyan 
+								var languages = "";
+								/* for(var i = 0; i < rtn.Language.length; i++) { */
+								languages += "<li data=\"Lan-" + rtn.picBaseinfo.language + "\"><span>"
+										+ rtn.picBaseinfo.language
+										+ "</span></li>";
+								/* } */
+								$("#languages").append(languages);
+								//fenji
+								var level = "";
+								/* for(var i = 0; i < rtn.piclevel.length; i++) { */
+								level += "<li data=\"Lv-" + rtn.picBaseinfo.lv + "\"><span>"
+										+ rtn.picBaseinfo.lv
+										+ "</span></li>";
+								/* } */
+								$("#level").append(level);
+								//tupiandizhi
+								var pagehtml = "";
+ 				for(var i = 0 ;i <rtn.addrs.length;i++){
+ 					pagehtml1="<li><img  src=\""+rtn.addrs[i]+"\" alt=\"图片"+i+"\"></li>";
+ 					pagehtml+=pagehtml1; 
+ 				}
+ 				$("#sucaihuo").append(pagehtml);
+ 				var viewer = new Viewer(document.getElementById('sucaihuo'),{
+  					show: function (){
+						viewer.update();
+		  			}  
+				});
+
+							},
+							error : function(jqXHR, textStatus, errorThrown) {
+								/* var sessionstatus = jqXHRgetResponseHeader("sessionstatus");
+								if (sessionstatus == "timeout") {
+									alert(i1510.sessionOutMes);
+									var req_address = i1510.sessionOutUrl;
+									window.location.href = req_address;
+								} */
+							}
+
+						});
+
+			});
+	</script>
+
+</html>
